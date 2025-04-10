@@ -1,2 +1,19 @@
-# Docker-Streamlink
-Streamlink inside Docker, multiple streamer download at once
+## Info
+This is a Docker container which uses streamlink in a python container to record streams from twitch.tv
+
+### Install
+1. Download all files and move them into one folder so it looks something like this:
+```
+<your-folder-name>
+├── docker-compose.yml
+├── Dockerfile
+├── streamers.txt
+└── streamlink-recorder.sh
+```
+2. Edit the docker-compose.yml file and adjust the paths
+3. Add Streamers inside Streamers.txt
+4. Run
+```
+docker build -t <INSERT-NAME> .
+```
+6. you're ready to go
