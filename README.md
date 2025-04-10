@@ -20,4 +20,4 @@ Might be cpu-heavy depending on how many streamers you're recording at once
 ```
 docker build -t <INSERT-NAME> .
 ```
-6. you're ready to go
+5. you're ready to go
