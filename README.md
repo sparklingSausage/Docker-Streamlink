@@ -1,6 +1,6 @@
 ## Info
 This is a Docker container which uses streamlink in a python container to record streams from twitch.tv
-### !!WARNING!!!
+### WARNING!!
 Might be cpu-heavy depending on how many streamers you're recording at once
 
 ### Install
