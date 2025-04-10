@@ -1,0 +1,14 @@
+services:
+  recorder:
+    build: .
+    container_name: streamlink-recorder
+    restart: unless-stopped
+    volumes:
+      - /path/to/streamers.txt:/app/streamers.txt
+      - /path/to/streamlink-recorder.sh:/app/streamlink-recorder.sh
+      - /path/to/downloads/:/home/download
+
+
+    command: ["/app/streamlink-recorder.sh", "--twitch-disable-ads", "best", "/app/streamers.txt", "/home/download"]
+
+
