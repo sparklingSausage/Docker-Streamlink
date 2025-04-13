@@ -1,12 +1,17 @@
+# Dockerfile
 FROM python:3.11-slim
 
-RUN pip install streamlink
+RUN apt-get update && \
+    apt-get install -y ffmpeg curl && \
+    pip install streamlink && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-COPY streamlink-recorder.sh .
-RUN chmod +x streamlink-recorder.sh
+COPY stream-recorder.sh .
+COPY streamers.txt .
 
-RUN mkdir -p /home/download
+RUN chmod +x stream-recorder.sh
 
-CMD ["./streamlink-recorder.sh", "--twitch-disable-ads", "best", "/app/streamers.txt", "/home/download"]
+CMD ["./stream-recorder.sh"]
