@@ -1,14 +1,13 @@
 services:
-  recorder:
-    build: .
-    container_name: streamlink-recorder
+  twitch-recorder:
+    image: latenightweeb/streamlink-recorder
+    container_name: twitch_recorder
     restart: unless-stopped
+    environment:
+      STREAMERS: streamer1,streamer2,streamer3 # streamers are listed with a ,
+      OUTPUT_DIR: /recordings # I recommend you don't change this
+      STREAM_QUALITY: best # quality can be set, check streamlink documentations for more
+      CHECK_INTERVAL: 60 # check interval in seconds
+      STREAMLINK_ARGS: --twitch-disable-ads # additional streamlink arguments
     volumes:
-      - /path/to/streamers.txt:/app/streamers.txt
-      - /path/to/streamlink-recorder.sh:/app/streamlink-recorder.sh
-      - /path/to/downloads/:/home/download
-
-
-    command: ["/app/streamlink-recorder.sh", "--twitch-disable-ads", "best", "/app/streamers.txt", "/home/download"]
-
-
+      - /media/pi/4TB/stream/:/recordings # set path you want before : | only change /recordings if you changed OUTPUT_DIR as well
