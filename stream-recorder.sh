@@ -1,13 +1,19 @@
 #!/bin/bash
 
-STREAM_QUALITY="best"
-STREAMERS_FILE="streamers.txt"
-OUTPUT_DIR="/recordings"
-CHECK_INTERVAL=30  # per-streamer check frequency
+STREAM_QUALITY="${STREAM_QUALITY:-best}"
+OUTPUT_DIR="${OUTPUT_DIR:-/recordings}"
+CHECK_INTERVAL="${CHECK_INTERVAL:-30}"
+STREAMLINK_ARGS="${STREAMLINK_ARGS:---twitch-disable-ads}"
+
+if [ -z "$STREAMERS" ]; then
+    echo "Error: STREAMERS environment variable not set. Please supply a comma separated list of streamers."
+    exit 1
+fi
+
+IFS=',' read -ra STREAMER_LIST <<< "$STREAMERS"
 
 mkdir -p "$OUTPUT_DIR"
 
-# Function to monitor one streamer
 record_streamer() {
     local streamer="$1"
     local out_dir="${OUTPUT_DIR}/${streamer}"
@@ -19,8 +25,7 @@ record_streamer() {
         if streamlink --json "twitch.tv/$streamer" "$STREAM_QUALITY" &>/dev/null; then
             TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
             echo "[$streamer] Live at $TIMESTAMP, starting recording..."
-
-            streamlink --twitch-disable-ads "twitch.tv/$streamer" "$STREAM_QUALITY" \
+            streamlink $STREAMLINK_ARGS "twitch.tv/$streamer" "$STREAM_QUALITY" \
                 -o "${out_dir}/${streamer}-${TIMESTAMP}.mp4" \
                 >> "${out_dir}/record.log" 2>&1
             echo "[$streamer] Stream ended at $(date)"
@@ -32,11 +37,8 @@ record_streamer() {
     done
 }
 
-# Start one recording loop per streamer
-while IFS= read -r streamer; do
+for streamer in "${STREAMER_LIST[@]}"; do
     [[ -z "$streamer" ]] && continue
     record_streamer "$streamer" &
-done < "$STREAMERS_FILE"
-
-# Wait forever
+done
 wait
