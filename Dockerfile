@@ -1,4 +1,5 @@
 FROM python:3.11-slim
+
 RUN pip install streamlink && \
     apt-get update && \
     apt-get install -y ffmpeg && \
