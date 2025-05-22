@@ -1,13 +1,13 @@
 services:
   twitch-recorder:
     image: latenightweeb/streamlink-recorder
-    container_name: twitch_recorder
+    container_name: twitch-recorder
     restart: unless-stopped
     environment:
-      STREAMERS: streamer1,streamer2,streamer3 # streamers are listed with a ,
-      OUTPUT_DIR: /recordings # I recommend you don't change this
-      STREAM_QUALITY: best # quality can be set, check streamlink documentations for more
-      CHECK_INTERVAL: 60 # check interval in seconds
-      STREAMLINK_ARGS: --twitch-disable-ads # additional streamlink arguments
+      STREAMERS: streamer1,streamer2,streamer3 # DO NOT LEAVE SPACES, otherwise the online check won't work
+      OUTPUT_DIR: /recordings # change if needed (don't recommend to do so)
+      STREAM_QUALITY: best # change if needed
+      CHECK_INTERVAL: 60 # maybe change it to 30 seconds if you want to
+      STREAMLINK_ARGS: --twitch-disable-ads # other parameters can be added
     volumes:
-      - /media/pi/4TB/stream/:/recordings # set path you want before : | only change /recordings if you changed OUTPUT_DIR as well
+      - /path/to/your/liking/:/recordings # change if you want
