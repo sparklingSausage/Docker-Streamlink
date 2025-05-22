@@ -38,7 +38,10 @@ record_streamer() {
 }
 
 for streamer in "${STREAMER_LIST[@]}"; do
+    # Skip empty entries (in case of malformed STREAMERS value)
     [[ -z "$streamer" ]] && continue
     record_streamer "$streamer" &
 done
+
 wait
+
