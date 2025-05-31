@@ -14,7 +14,7 @@ This image is made to record multiple Twitch streamers at once
     container_name: twitch_recorder
     restart: unless-stopped
     environment:
-      STREAMERS: bastighg,letshugotv,lydiaviolet,papaplatte,themewdew
+      STREAMERS: streamer1,streamer2,etc
       OUTPUT_DIR: /recordings
       STREAM_QUALITY: best
       CHECK_INTERVAL: 60
