@@ -1,6 +1,6 @@
 services:
   twitch-recorder:
-    image: latenightweeb/streamlink-recorder
+    image: sparklingsausage/streamlink-recorder
     container_name: twitch-recorder
     restart: unless-stopped
     environment:
