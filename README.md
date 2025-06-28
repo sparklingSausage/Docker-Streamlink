@@ -10,7 +10,7 @@ This image is made to record multiple Twitch streamers at once
 
 ```
   twitch-recorder:
-    image: latenightweeb/streamlink-recorder
+    image: sparklingsausage/streamlink-recorder
     container_name: twitch_recorder
     restart: unless-stopped
     environment:
